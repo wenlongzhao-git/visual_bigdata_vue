@@ -2,8 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import BdiLogin from '@/components/manage/BdiLogin'
 import BdiIndex from '@/components/home/BdiIndex'
-import HelloWorld from '@/components/HelloWorld'
-import Hello from '@/components/Hello'
+import BdiRegist from '@/components/manage/BdiRegist'
 
 Vue.use(Router)
 
@@ -25,14 +24,13 @@ export default new Router({
       component: BdiLogin
     },
     {
-      path: '/Hello',
-      name: 'Hello',
-      component: Hello
+      path: '/regist',
+      name: 'BdiRegist',
+      component: BdiRegist
     },
     {
-      path: '/HelloWorld',
-      name: 'HelloWorld',
-      component: HelloWorld
+      path: '/cancle',
+      redirect: '/login'
     }
   ]
 })

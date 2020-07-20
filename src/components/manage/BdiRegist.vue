@@ -7,7 +7,7 @@
           <div>
             <div class="input">
               用户名：
-              <el-input size="mini" v-model="spduser.username" clearable></el-input>
+              <el-input size="mini" v-model="spduser.username" @blur ="uservility" clearable></el-input>
             </div>
             <div class="input">
               密码：
@@ -43,7 +43,7 @@
 
 <script>
   export default {
-    name: "BlogRegist",
+    name: "BdiRegist",
     data() {
       return {
         spduser: {
@@ -64,36 +64,36 @@
       }
     },
     methods: {
-      /*vility: function () {
-        //后台验证当前用户名是否存在
-        this.$axios.get('/regist/' + this.username
-        ).then(successResponse => {
-          if (successResponse.data.code === 400) {
-            this.$alert(successResponse.data.message)
-          } else {
-          }
-        })
-      },*/
+      uservility:function(){
+        this.$axios.post("http://localhost:8085/verifyExist", this.$qs.stringify({username:this.spduser.username}))
+          .then(result => {
+            if (result.data.isexist == 'true') {
+              alert("用户名可以使用")
+            } else {
+              alert("用户名已存在！")
+            }
+          })
+      },
       cancle: function () {
         this.$router.replace('/cancle')
       },
       regist: function () {
-        this.$axios.post("/regist/addRegistInfo", {
+
+        this.$axios.post("http://localhost:8085/adduser", this.$qs.stringify({
           username: this.spduser.username,
           password: this.spduser.password,
           email: this.spduser.email,
           age: this.spduser.age,
           sex: this.value
-        }).then(Reponse => {
-          if (Reponse.data.code == 200) {
-            this.$message({
-              message: Reponse.data.message,
-              type: 'success'
-            });
+        })).then(Reponse => {
+          this.addUserInfo = false;
+          let username = Reponse.data.username
+          let isadd = Reponse.data.isadd
+          if (isadd == 'true') {
+            this.$alert("添加成功")
             this.$router.replace("/login")
-
           } else {
-            this.$alert(Reponse.data.message);
+            this.$alert("添加失败")
           }
         })
       }

@@ -13,7 +13,7 @@
       <el-dialog title="添加用户信息" :visible="addUserInfo" :modal-append-to-body='false' :before-close="closeAddDialog" style="background-color: #ffedd7" >
         <el-form ref="addUserInfoForm" :model="addUserInfoForm" label-width="80px">
           <el-form-item label="账号">
-            <el-input v-model="addUserInfoForm.username" max-length="10" size="small" clearable></el-input>
+            <el-input v-model="addUserInfoForm.username" @blur ="uservility" max-length="10" size="small" clearable></el-input>
           </el-form-item>
           <el-form-item label="密码">
             <el-input v-model="addUserInfoForm.password" size="small"></el-input>
@@ -72,7 +72,7 @@
       }
     },
 
-    mounted: function () {
+    /*mounted: function () {
       this.$axios.get("/user/allinfo").then(response => {
         if (response.data.length > 0) {
           for (var i = 0; i < response.data.length; i++) {
@@ -89,8 +89,18 @@
         }
       });
 
-    },
+    },*/
     methods: {
+      uservility:function(){
+        this.$axios.post("http://localhost:8085/verifyExist", this.$qs.stringify({username:this.addUserInfoForm.username}))
+          .then(result => {
+            if (result.data.isexist == 'true') {
+              alert("用户名可以使用")
+            } else {
+              alert("用户名已存在！")
+            }
+          })
+      },
       addUserInfoBtn: function () {
         this.addUserInfo = true;
       },
