@@ -98,11 +98,11 @@
               if (success) {
                 this.$router.replace({name: 'BdiIndex',params:{username:username,token:token}})
               }else {
-                this.$alert("账号或密码错误！请重新输入！")
+                this.$alert(successResponse.data.msg)
               }
             })
             .catch(failResponse => {
-              alert("错误了"+ failResponse)
+              alert(successResponse.data.msg+ failResponse)
             })
         }
       }

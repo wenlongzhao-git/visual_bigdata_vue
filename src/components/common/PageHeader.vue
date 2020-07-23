@@ -38,7 +38,6 @@
       <div>
         <page-side :datas="datatable" v-if="datatable.length" style="background-image: url('../../../static/images/db281a4d66e0ed5832927cf930130f91.jpg')"></page-side>
       </div>
-
     </div>
   </el-header>
 </template>
@@ -84,21 +83,19 @@
                 response.data.detail[i].sex = '女';
               }
             }
-
           }
           this.datatable = response.data.detail;
         }
       });
-
     },
     methods: {
       uservility:function(){
         this.$axios.post("http://localhost:8085/verifyExist", this.$qs.stringify({username:this.addUserInfoForm.username}))
           .then(result => {
             if (result.data.success) {
-              alert("用户名已存在！")
+              alert(result.data.msg)
             } else {
-              alert("用户名可以使用")
+              alert(result.data.msg)
             }
           })
       },
@@ -132,9 +129,9 @@
           let success = Reponse.data.success
           if (success) {
             this.datatable.unshift(Reponse.data.data);
-            this.$alert("添加成功")
+            this.$alert(Reponse.data.msg)
           } else {
-            this.$alert("添加失败")
+            this.$alert(Reponse.data.msg)
           }
         })
           .catch(e =>{
@@ -145,10 +142,10 @@
         this.$axios.post("http://localhost:8085/logout").then(Reponse => {
           let success = Reponse.data.success
           if (success) {
-            this.$alert("退出成功")
+            this.$alert(Reponse.data.msg)
             this.$router.replace({path:'/login'})
           } else {
-            this.$alert("退出失败")
+            this.$alert(Reponse.data.msg)
           }
         })
           .catch(a => {

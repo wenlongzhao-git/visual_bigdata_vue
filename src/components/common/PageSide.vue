@@ -19,7 +19,7 @@
                 <span>{{ props.row.email }}</span>
               </el-form-item>
               <el-form-item label="创建时间：">
-                <span>{{ props.row.cjsj }}</span>
+                <span>{{ props.row.createtime }}</span>
               </el-form-item>
             </el-form>
           </template>
@@ -43,8 +43,10 @@
         <el-table-column sortable label="性别" prop="sex">
 
         </el-table-column>
-        <el-table-column sortable label="创建时间" prop="cjsj" width="160px"></el-table-column>
-        <el-table-column sortable label="修改时间" prop="xgsj" width="150px"></el-table-column>
+        <el-table-column sortable label="创建时间" prop="createtime" width="160px"></el-table-column>
+        <el-table-column sortable label="修改时间" prop="updatetime" width="150px"></el-table-column>
+        <el-table-column sortable label="有效时间" prop="endtime" width="150px"></el-table-column>
+        <el-table-column sortable label="权限" prop="userps" width="150px"></el-table-column>
         <el-table-column label="操作" width="150px" fixed="right">
           <template slot-scope="scope">
             <el-button type="primary" size="small" icon="el-icon-edit"
@@ -132,14 +134,18 @@
 
       },
       deleteUserInfo: function (index, rowinfo, dataTable) {
+
+        var param = {
+          username: rowinfo.username,
+          password: rowinfo.password
+        }
+
         this.$alert('您确定删除用户名为【' + rowinfo.username + "】的用户信息吗？删除之后将不可恢复", '删除用户信息', {
           confirmButtonText: '确定',
           callback: action => {
             //向后台发送请求
-            this.$axios.delete('/user/delete/' + rowinfo.id, {
-              params: {}
-            }).then(response => {
-              if (response.data.code == 200) {
+            this.$axios.post('http://localhost:8085/delete', this.$qs.stringify(param)).then(response => {
+              if (response.data.success) {
                 //注意此处的index的值并不对应数组中的下标，这与排序方式有关，可以使用下面的方法来实现页面的动态更新，但为了有更好的适用性，建议用第二种方式
                 //第一种方式
                 /* index = dataTable.length - index - 1;*/
@@ -152,11 +158,11 @@
                 }
                 dataTable.splice(index, 1)
                 this.$message({
-                  message: response.data.message,
+                  message: response.data.msg,
                   type: 'success'
                 })
               } else {
-                this.$message(response.data.message)
+                this.$message(response.data.msg)
               }
             })
           }
@@ -165,7 +171,7 @@
       userInfoEdit: function () {
         this.editsForm.sex = this.value
         //提交后台进行修改
-        this.$axios.put("/user/update", this.editsForm).then(reponse => {
+        this.$axios.post("http://localhost:8085/update", this.editsForm).then(reponse => {
           if (reponse.data.code == 200) {
             if (this.editsForm.sex == 0) {
               this.editsForm.sex = '男'
@@ -173,12 +179,12 @@
               this.editsForm.sex = '女'
             }
             this.$message({
-              message: reponse.data.message,
+              message: reponse.data.msg,
               type: 'success'
             });
           } else {
             this.$message({
-              message: reponse.data.message,
+              message: reponse.data.msg,
               type: 'warning'
             });
           }
@@ -189,7 +195,7 @@
         this.editstudentForm = false;
       },
       changeSort: function (column, order, prop) {
-        this.sortPros = {prop: 'cjsj', order: 'descending'}
+        this.sortPros = {prop: 'createtime', order: 'descending'}
       }
     }
   }
