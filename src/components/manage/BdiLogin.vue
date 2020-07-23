@@ -94,9 +94,8 @@
             .then(successResponse => {
               let token = this.utils.getCookie("token")
               let username = successResponse.data.username
-              let islogin = successResponse.data.islogin
-              this.responseResult = JSON.stringify(successResponse.data)
-              if (islogin === 'true') {
+              let success = successResponse.data.success
+              if (success) {
                 this.$router.replace({name: 'BdiIndex',params:{username:username,token:token}})
               }else {
                 this.$alert("账号或密码错误！请重新输入！")

@@ -72,32 +72,33 @@
       }
     },
 
-    /*mounted: function () {
-      this.$axios.get("/user/allinfo").then(response => {
-        if (response.data.length > 0) {
-          for (var i = 0; i < response.data.length; i++) {
-            if (response.data[i].sex != null) {
-              if (response.data[i].sex == 0) {
-                response.data[i].sex = '男';
+    mounted: function () {
+      this.$axios.get("http://localhost:8085/findAll").then(response => {
+        var detail = response.data.detail
+        if (response.data.detail.length > 0) {
+          for (var i = 0; i < response.data.detail.length; i++) {
+            if (response.data.detail[i].sex != null) {
+              if (response.data.detail[i].sex == 0) {
+                response.data.detail[i].sex = '男';
               } else {
-                response.data[i].sex = '女';
+                response.data.detail[i].sex = '女';
               }
             }
 
           }
-          this.datatable = response.data;
+          this.datatable = response.data.detail;
         }
       });
 
-    },*/
+    },
     methods: {
       uservility:function(){
         this.$axios.post("http://localhost:8085/verifyExist", this.$qs.stringify({username:this.addUserInfoForm.username}))
           .then(result => {
-            if (result.data.isexist == 'true') {
-              alert("用户名可以使用")
-            } else {
+            if (result.data.success) {
               alert("用户名已存在！")
+            } else {
+              alert("用户名可以使用")
             }
           })
       },
@@ -109,26 +110,41 @@
       },
       userInfoAdd: function () {
         this.addUserInfoForm.sex = this.value;
-        let token = this.$route.params.token
+
+        var param = {
+          username: this.addUserInfoForm.username,
+          password: this.addUserInfoForm.password,
+          age: this.addUserInfoForm.age,
+          sex: this.addUserInfoForm.sex,
+          email: this.addUserInfoForm.email
+        }
 
         //向后台提交请求
-        this.$axios.post("http://localhost:8085/adduser", this.$qs.stringify(this.addUserInfoForm)).then(Reponse => {
+        this.$axios({
+            method : 'post',
+            url :"http://localhost:8085/adduser",
+            data :JSON.stringify(param) ,
+            headers:{
+              'Content-Type':"application/json",
+              'charset':'UTF-8'}
+          }).then(Reponse => {
           this.addUserInfo = false;
-          let username = Reponse.data.username
-          let isadd = Reponse.data.isadd
-          if (isadd == 'true') {
+          let success = Reponse.data.success
+          if (success) {
             this.datatable.unshift(Reponse.data.data);
             this.$alert("添加成功")
           } else {
             this.$alert("添加失败")
           }
         })
+          .catch(e =>{
+            alert(e.data)
+          })
       },
       tclogin:function () {
         this.$axios.post("http://localhost:8085/logout").then(Reponse => {
-          let islogin = Reponse.data.islogin
-
-          if (islogin == 'false') {
+          let success = Reponse.data.success
+          if (success) {
             this.$alert("退出成功")
             this.$router.replace({path:'/login'})
           } else {
