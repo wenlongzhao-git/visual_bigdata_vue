@@ -21,6 +21,9 @@
               <el-form-item label="创建时间：">
                 <span>{{ props.row.createtime }}</span>
               </el-form-item>
+              <el-form-item label="有效时间：">
+                <span>{{ props.row.endtime }}</span>
+              </el-form-item>
             </el-form>
           </template>
         </el-table-column>
