@@ -3,6 +3,8 @@ import Router from 'vue-router'
 import BdiLogin from '@/components/manage/BdiLogin'
 import BdiIndex from '@/components/home/BdiIndex'
 import BdiRegist from '@/components/manage/BdiRegist'
+import Home from '@/components/home/Home'
+import Head from '@/components/home/Head'
 
 Vue.use(Router)
 
@@ -31,6 +33,16 @@ export default new Router({
     {
       path: '/cancle',
       redirect: '/login'
+    },
+    {
+      path: '/home',
+      name: 'Home',
+      component: Home
+    },
+    {
+      path: '/head',
+      name: 'Head',
+      component: Head
     }
   ]
 })

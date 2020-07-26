@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="margin-top:5%;">
     <link rel="stylesheet" href="static/css/style.css" type="text/css" media="all"/>
     <!-- Style-CSS -->
     <link rel="stylesheet" href="static/css/fontawesome-all.css">
