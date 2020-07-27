@@ -3,8 +3,9 @@ import Router from 'vue-router'
 import BdiLogin from '@/components/manage/BdiLogin'
 import BdiIndex from '@/components/home/BdiIndex'
 import BdiRegist from '@/components/manage/BdiRegist'
-import Home from '@/components/home/Home'
-import Head from '@/components/home/Head'
+import BdiHome from '@/components/home/BdiHome'
+import NavMenu from '@/components/tree/NavMenu'
+import siderbar from '@/components/tree/siderbar'
 
 Vue.use(Router)
 
@@ -36,13 +37,18 @@ export default new Router({
     },
     {
       path: '/home',
-      name: 'Home',
-      component: Home
+      name: 'BdiHome',
+      component: BdiHome
     },
     {
-      path: '/head',
-      name: 'Head',
-      component: Head
+      path: '/navmenu',
+      name: 'NavMenu',
+      component: NavMenu
+    },
+    {
+      path: '/siderbar',
+      name: 'siderbar',
+      component: siderbar
     }
   ]
 })
