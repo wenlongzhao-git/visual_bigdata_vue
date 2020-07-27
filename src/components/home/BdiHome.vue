@@ -21,13 +21,13 @@
         </Menu-item>
       </div>
       <div class="layout-user">
-        <MenuItem name="1">
+        <MenuItem key="5">
           <Icon type="ios-navigate"></Icon>
           Item 1
         </MenuItem>
       </div>
     </Menu>
-    <Menu class="layout-second-nav" mode="horizontal" active-key="1">
+    <Menu class="layout-second-nav" mode="horizontal" :active-key="1">
       <div class="layout-assistant">
         <Menu-item key="1">二级导航</Menu-item>
         <Menu-item key="2">二级导航</Menu-item>
@@ -70,8 +70,19 @@
             </Submenu>-->
           </Menu>
         </i-col>
-        <i-col span="19">
-          <div class="layout-content-main">内容区域</div>
+        <i-col style="min-height: 700px" span="19">
+          <div style="margin: 5px;padding: 5px; min-height: 690px;">
+
+            <!--<div style="height: 40px;" class="layout-content-main">内容区域</div>-->
+            <div style="height: 30px;">
+              <Tag closable v-for="item in count" :key="item" :name="item"  @on-close="handleClose2">标签{{ item + 1 }}</Tag>
+              <Button icon="ios-plus-empty" type="dashed" size="small" @click="handleAdd">添加标签</Button>
+            </div>
+            <div style="min-height: 540px; float-displace: 0px;background: #3F3F3F;">
+              <!--<iframe src="../../../static/demo.html" width="1200" height="300" frameborder="0" scrolling="auto" style="position:absolute;top: 0px;left: 0px;"></iframe>-->
+            </div>
+          </div>
+
         </i-col>
       </Row>
     </div>
@@ -84,7 +95,25 @@
   import siderbar from '../tree/siderbar.vue'
   export default {
     name : 'BdiHome',
-    components: {siderbar}
+    components: {siderbar},
+    data () {
+      return {
+        count: [0, 1, 2]
+      };
+    },
+    methods: {
+      handleAdd () {
+        if (this.count.length) {
+          this.count.push(this.count[this.count.length - 1] + 1);
+        } else {
+          this.count.push(0);
+        }
+      },
+      handleClose2 (event, name) {
+        const index = this.count.indexOf(name);
+        this.count.splice(index, 1);
+      }
+    }
   }
 </script>
 <style scoped>
@@ -103,10 +132,11 @@
     left: 20px;
   }
   .layout-nav{
-    width: 420px;
+    width: 430px;
     margin: 0 auto;
   }
   .layout-user{
+    width: 105.89px;
     float: right;
   }
   .layout-assistant{
@@ -125,8 +155,8 @@
     min-height: 700px;
   }
   .layout-content-main{
-    padding: 10px;
-    min-height: 700px;
+    /*padding: 10px;*/
+    /*min-height: 700px;*/
   }
   .layout-copy{
     text-align: center;
