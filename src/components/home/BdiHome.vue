@@ -38,7 +38,7 @@
       <Row>
         <i-col span="5">
           <Menu active-key="1-2" width="auto" :open-keys="['1']">
-            <div style="height: 700px;overflow: auto;">
+            <div style="height: 730px;overflow: auto;">
               <siderbar></siderbar>
             </div>
 
@@ -70,32 +70,34 @@
             </Submenu>-->
           </Menu>
         </i-col>
-        <i-col style="min-height: 700px" span="19">
-          <div style="margin: 5px;padding: 5px; min-height: 690px;">
+        <i-col style="min-height: 730px;background: #f8f8f9;" span="19">
+          <div style="margin: 5px; min-height: 690px;">
 
             <!--<div style="height: 40px;" class="layout-content-main">内容区域</div>-->
-            <div style="height: 30px;">
+            <!--<div style="height: 30px;padding: 4px;">
               <Tag closable v-for="item in count" :key="item" :name="item"  @on-close="handleClose2">标签{{ item + 1 }}</Tag>
               <Button icon="ios-plus-empty" type="dashed" size="small" @click="handleAdd">添加标签</Button>
             </div>
             <div style="min-height: 540px; float-displace: 0px;background: #3F3F3F;">
-              <!--<iframe src="../../../static/demo.html" width="1200" height="300" frameborder="0" scrolling="auto" style="position:absolute;top: 0px;left: 0px;"></iframe>-->
-            </div>
+              &lt;!&ndash;<iframe src="../../../static/demo.html" width="1200" height="300" frameborder="0" scrolling="auto" style="position:absolute;top: 0px;left: 0px;"></iframe>&ndash;&gt;
+            </div>-->
+            <bditabpane></bditabpane>
           </div>
 
         </i-col>
       </Row>
     </div>
-    <div class="layout-copy">
+    <div class="layout-copy" style="background: #515a6e;">
       2011-2016 &copy; TalkingData
     </div>
   </div>
 </template>
 <script>
   import siderbar from '../tree/siderbar.vue'
+  import bditabpane from '../tag/BdiTabPane.vue'
   export default {
     name : 'BdiHome',
-    components: {siderbar},
+    components: {siderbar,bditabpane},
     data () {
       return {
         count: [0, 1, 2]
@@ -152,7 +154,7 @@
     overflow: hidden;
     background: #fff;
     border-radius: 4px;
-    min-height: 700px;
+    min-height: 730px;
   }
   .layout-content-main{
     /*padding: 10px;*/
