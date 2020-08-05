@@ -38,7 +38,7 @@
       <Row>
         <i-col span="5">
           <Menu active-name="1-2" width="auto" :open-keys="['1']">
-            <div style="height: 730px;overflow: auto;">
+            <div style="min-height: 730px; overflow: auto;">
               <siderbar></siderbar>
             </div>
 
