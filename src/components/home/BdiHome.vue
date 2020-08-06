@@ -71,7 +71,7 @@
           </Menu>
         </i-col>
         <i-col style="min-height: 730px;background: #f8f8f9;" span="19">
-          <div style="margin: 5px; min-height: 690px;">
+          <div style="margin: 5px; min-height: 720px;">
             <bditabpane></bditabpane>
           </div>
 

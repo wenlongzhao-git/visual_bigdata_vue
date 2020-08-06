@@ -1,9 +1,18 @@
 <template xmlns:v-bind="http://java.sun.com/xml/ns/javaee">
   <Tabs type="card" :draggable="true" :animated="false" @on-drag-drop="handleDragDrop" v-model="activeName" @on-tab-remove="handleTabRemove" :before-remove="beforeRemove">
-    <TabPane v-for="(tab, index) in tabDefult" :key="'defult'+index" :label="tab.label" :name="tab.name">{{ tab.label }}</TabPane>
-    <TabPane v-for="(tab, index) in tabList" :key="tab.name" :label="tab.label" :name="tab.name" v-if="tab+tab.name" closable>
-      <div style="min-height: 650px; border: 1px solid #dcdee2;">
+    <TabPane v-for="(tab, index) in tabDefult" :key="'defult'+index" :label="tab.label" :name="tab.name">
+      <div style="height: 100%; min-height: 672px; border: 1px solid #dcdee2;">
         {{ tab.label }}
+      </div>
+    </TabPane>
+    <TabPane v-for="(tab, index) in tabList" :key="tab.name" :label="tab.label" :name="tab.name" v-if="tab+tab.name" closable>
+      <div style="min-height: 672px; border: 1px solid #dcdee2;">
+        <!--{{ tab.label }}-->
+        <div class="f-left" style="min-height: 30px;width: 100%;border: 1px solid #dcdee2;"></div>
+        <div class="f-left" style="margin: 3px;float: left;min-height: 632px;width: 12%;border: 1px solid #dcdee2;"></div>
+        <div class="f-center" style="margin-top: 3px; margin-bottom: 3px;float: left; min-height: 632px;width: 87%; border: 1px solid #dcdee2;">
+          <div class="f-right" style="margin: 3px;float: right;min-height: 624px;width: 20%;border: 1px solid #dcdee2;"></div>
+        </div>
       </div>
     </TabPane>
   </Tabs>
